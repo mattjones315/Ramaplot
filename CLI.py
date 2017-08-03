@@ -9,11 +9,11 @@
 Then launches the main pipeline
 """
 
-from __future__ import absolute_import, print_function, division;
-import argparse;
+from __future__ import absolute_import, print_function, division
+import argparse
 import os
-import numpy as np;
-import Ramaplots
+import numpy as np
+import Ramaplot
 import FileIO
 
 def parseRPArgs(): 
@@ -37,12 +37,13 @@ def entry():
 
     # Read in arguments from command line 
     args = parseRPArgs()
+    print(args)
 
     # Create protein data object to compute dihedral angles on 
-    protein = readPDB(args["pdb_file"])
+    #protein = readPDB(args["pdb_file"])
     
     # Compute dihedral angles, saved as a dictionary object
-    angles = ComputeAngles(protein)
+    #angles = ComputeAngles(protein)
 
     # Now plot results
     
