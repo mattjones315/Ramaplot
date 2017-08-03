@@ -27,7 +27,7 @@ class Atom:
 
     def __str__(self):
         rep = self.serial_number + " " + self.name + \
-                "(" + self.x + ", " + self.y + ", " + self.z + ")
+                "(" + self.x + ", " + self.y + ", " + self.z + ")"
         return rep
 
 class Residue:
