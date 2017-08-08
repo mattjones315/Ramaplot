@@ -66,18 +66,23 @@ class Vector:
 
     def normalize(self):
 
-        mu = Vector([self.mean]*self.length)
-        sigma = Vector([self.sd]*self.length)
+        norm_factor = self.squared_sum() ** (1/2)
+        norm_vec = Vector([norm_factor]*self.length)
 
-        print(self-mu)
-        
-        return (self - mu) / sigma
+        return self / norm_vec
 
     def place(self, i , val):
         self.vec[i] = val
         
     def get(self, i):
         return self.vec[i]
+
+    def squared_sum(self):  
+        total = 0
+        for i in range(self.length):
+            total += self.get(i)**2
+
+        return total
 
     @property
     def length(self):
@@ -109,11 +114,22 @@ class Vector:
 
     def __mul__(self, other):
         
-        assert self.length == other.length
+        assert type(other) == int or type(other) == float or self.length == other.length 
 
         n_l = []
         for i in range(self.length):
-            n_l.append(self.get(i) * other.get(i))
+            if type(other) == int:
+                n_l.append(self.get(i) * other)
+            else:
+                n_l.append(self.get(i) * other.get(i))
+        return Vector(n_l)
+
+    def __rmul__(self, other):
+
+        n_l = []
+        for i in range(self.length):
+            n_l.append(self.get(i) * other)
+
         return Vector(n_l)
 
 
@@ -125,3 +141,22 @@ class Vector:
         for i in range(self.length):
             n_l.append(self.get(i) / other.get(i))
         return Vector(n_l)
+
+    def __truediv__(self, other):
+
+        assert self.length == other.length
+
+        n_l = []
+        for i in range(self.length):
+            n_l.append(self.get(i) / other.get(i))
+        return Vector(n_l)
+
+    def __floordiv__(self, other):
+        
+        assert self.length == other.length
+
+        n_l = []
+        for i in range(self.length):
+            n_l.append(self.get(i) // other.get(i))
+        return Vector(n_l)
+        
