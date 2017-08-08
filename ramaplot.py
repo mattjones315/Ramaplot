@@ -31,10 +31,8 @@ def main():
     # Create protein data object to compute dihedral angles on 
     protein = Protein.readPDB(args["pdb_file"])
     
-    # Compute dihedral angles, saved as a dictionary object
-    #angles = ComputeAngles(protein)
+    # Compute dihedral groups, saved as a dictionary object & compute angles
     protein.gather_dihedral_groups()
-
     protein.compute_dihedrals()
 
 
