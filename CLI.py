@@ -20,21 +20,4 @@ def parseRPArgs():
     return args
 
 
-def entry(): 
-    """
-    Entry point for Ramaplot command-line script
-    """
-
-    # Read in arguments from command line 
-    args = parseRPArgs()
-
-    # Create protein data object to compute dihedral angles on 
-    protein = readPDB(args["pdb_file"])
-    
-    # Compute dihedral angles, saved as a dictionary object
-    #angles = ComputeAngles(protein)
-
-    # Now plot results
-    
-
 
