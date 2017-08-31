@@ -68,19 +68,23 @@ class Residue:
         a3 = atoms[2]
         a4 = atoms[3]
 
-        b1 = -1 * (a1 - a2)
+        b1 = a2 - a1
         b2 = a2 - a3
         b3 = a4 - a3
 
-        n1 = (b1.cross(b2)).normalize()
-        n2 = (b2.cross(b3)).normalize()
+        b1 = b1.normalize()
+        b2 = b2.normalize()
+        b3 = b3.normalize()
 
-        m1 = n1.cross(b2.normalize())
+        n1 = b1.cross(b2)
+        n2 = b2.cross(b3)
+
+        m1 = n1.cross(b2)
 
         x = n1.dot(n2)
         y = m1.dot(n2)
 
-        dihedral = math.degrees(math.atan2(x, y))
+        dihedral = math.degrees(math.atan2(y, x))
 
         if _type == "omega":
             self.omega = dihedral
@@ -136,11 +140,14 @@ class Protein:
 
             else:
 
-                # If this is the last residue, can't calculate omeage or psi
+                # If this is the last residue, can't calculate psi
                 if a_ii == (len(self.amino_acids)-1):
                     prev_aa = self.amino_acids[a_ii - 1]
                     self.phi[curr_aa.seq_num] = [prev_aa.get(2).coord(), curr_aa.get(0).coord(), 
                                                 curr_aa.get(1).coord(), curr_aa.get(2).coord()]
+                    self.omega[curr_aa.seq_num] =[prev_aa.get(1).coord(), prev_aa.get(2).coord(),
+                                                curr_aa.get(0).coord(), curr_aa.get(1).coord()]
+                            
 
                 else:
                     prev_aa = self.amino_acids[a_ii - 1]
